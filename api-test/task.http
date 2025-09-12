@@ -26,3 +26,8 @@ Authorization: Bearer {{TOKEN_USER}}
     "completed": true
 }
 
+###
+DELETE http://localhost:3000/tasks/E4xBaDCxRdEeTzb1Sy6X
+Content-Type: application/json
+Authorization: Bearer {{TOKEN_USER}}
+

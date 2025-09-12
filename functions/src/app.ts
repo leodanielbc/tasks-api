@@ -12,6 +12,8 @@ import { ListTasksRoute } from "./infrastructure/api/express/routes/task/list-ta
 import { GetTasksUseCase } from "./usescases/get-tasks/get-task.usecase";
 import { UpdateTaskUseCase } from "./usescases/update-task/update-task.usecase";
 import { UpdateTaskRoute } from "./infrastructure/api/express/routes/task/update-task.express.route";
+import { DeleteTaskRoute } from "./infrastructure/api/express/routes/task/delete-task.express.route";
+import { DeleteTaskUseCase } from "./usescases/delete-task/delete-task.usecase";
 
 export function createApp() {
 
@@ -24,11 +26,13 @@ export function createApp() {
     const createTaskUsecase = CreateTaskUseCase.create(taskRepository);
     const listTaskUseCase = GetTasksUseCase.create(taskRepository);
     const updateTaskUseCase = UpdateTaskUseCase.create(taskRepository);
+    const deleteTaskUseCase = DeleteTaskUseCase.create(taskRepository);
 
     const createUserRoute = CreateUserRoute.create(createUserUsecase);
     const loginUserRoute = LoginUserRoute.create();
     const listTaskRoute = ListTasksRoute.create(listTaskUseCase);
     const updateTaskRoute = UpdateTaskRoute.create(updateTaskUseCase);
+    const deleteTaskRoute = DeleteTaskRoute.create(deleteTaskUseCase);
 
     const createTaskRoute = CreateTaskRoute.create(createTaskUsecase);
 
@@ -37,7 +41,8 @@ export function createApp() {
         loginUserRoute,
         createTaskRoute,
         listTaskRoute,
-        updateTaskRoute
+        updateTaskRoute,
+        deleteTaskRoute
     ]);
 
     return api;
