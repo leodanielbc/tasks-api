@@ -4,7 +4,9 @@ export type HttpMethod = "get" | "post" | "put" | "delete";
 
 export const HttpMethod = {
     GET: "get" as HttpMethod,
-    POST: "post" as HttpMethod
+    POST: "post" as HttpMethod,
+    PUT: "put" as HttpMethod,
+    DELETE: "delete" as HttpMethod,
 } as const;
 
 export type RouteHandler = (req: Request, res: Response, next: NextFunction) => void | Promise<void>;

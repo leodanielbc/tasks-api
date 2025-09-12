@@ -8,6 +8,10 @@ import { LoginUserRoute } from "./infrastructure/api/express/routes/user/login-u
 import { CreateTaskRoute } from "./infrastructure/api/express/routes/task/create-task.express.route";
 import { TaskRepositoryFirestore } from "./infrastructure/repositories/task/task.repository.firebase";
 import { CreateTaskUseCase } from "./usescases/create-task/create-task.usecase";
+import { ListTasksRoute } from "./infrastructure/api/express/routes/task/list-task.express.route";
+import { GetTasksUseCase } from "./usescases/get-tasks/get-task.usecase";
+import { UpdateTaskUseCase } from "./usescases/update-task/update-task.usecase";
+import { UpdateTaskRoute } from "./infrastructure/api/express/routes/task/update-task.express.route";
 
 export function createApp() {
 
@@ -18,16 +22,22 @@ export function createApp() {
 
     const createUserUsecase = CreateUserUseCase.create(userRepository);
     const createTaskUsecase = CreateTaskUseCase.create(taskRepository);
+    const listTaskUseCase = GetTasksUseCase.create(taskRepository);
+    const updateTaskUseCase = UpdateTaskUseCase.create(taskRepository);
 
     const createUserRoute = CreateUserRoute.create(createUserUsecase);
     const loginUserRoute = LoginUserRoute.create();
+    const listTaskRoute = ListTasksRoute.create(listTaskUseCase);
+    const updateTaskRoute = UpdateTaskRoute.create(updateTaskUseCase);
 
     const createTaskRoute = CreateTaskRoute.create(createTaskUsecase);
 
     const api = ApiExpress.create([
         createUserRoute,
         loginUserRoute,
-        createTaskRoute
+        createTaskRoute,
+        listTaskRoute,
+        updateTaskRoute
     ]);
 
     return api;

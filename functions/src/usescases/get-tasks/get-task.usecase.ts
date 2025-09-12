@@ -19,8 +19,6 @@ export class GetTasksUseCase {
     public async execute(input: GetTasksInputDto): Promise<GetTasksOutputDto> {
         const tasks = await this.taskGateway.findAllByUser(input.userId);
 
-        tasks.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
-
         return { tasks };
     }
 }

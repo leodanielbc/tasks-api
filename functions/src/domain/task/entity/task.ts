@@ -44,11 +44,4 @@ export class Task {
             completed: !this.completed,
         });
     }
-
-    public update(data: Partial<Omit<TaskProps, "userId" | "createdAt">>) {
-        return Task.create({
-            ...this,
-            ...data,
-        });
-    }
 }
