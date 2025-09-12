@@ -14,22 +14,17 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '20.x'
 
       - name: Install dependencies
         run: |
           cd functions
           npm install
-
-      - name: Lint
-        run: |
-          cd functions
-          npm run lint || echo "Lint warnings/errors ignored"
 
       - name: Run tests
         run: |
