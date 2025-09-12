@@ -1,6 +1,7 @@
 import { Api } from "../api";
 import express, { Express } from "express";
 import { Route } from "./routes/route";
+import { corsMiddleware } from "./middleware/cors.middleware";
 
 
 export class ApiExpress implements Api {
@@ -10,6 +11,7 @@ export class ApiExpress implements Api {
     private constructor(routes: Route[]) {
         this.app = express();
         this.app.use(express.json());
+        this.app.use(corsMiddleware);
 
         this.addRoutes(routes);
     }
