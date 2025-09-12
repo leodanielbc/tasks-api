@@ -4,6 +4,7 @@ import { CreateUserRoute } from "./infrastructure/api/express/routes/user/create
 import { initFirebase } from "./infrastructure/package/firebase";
 import { UserRepositoryFirestore } from "./infrastructure/repositories/user/user.repository.firebase";
 import { CreateUserUseCase } from "./usescases/create-user/create-user.usecase";
+import { LoginUserRoute } from "./infrastructure/api/express/routes/user/login-user.express.route";
 
 export function createApp () {
 
@@ -14,8 +15,9 @@ export function createApp () {
     const createUserUsecase = CreateUserUseCase.create(userRepository);
 
     const createUserRoute = CreateUserRoute.create(createUserUsecase);
+    const loginUserRoute = LoginUserRoute.create();
 
-    const api = ApiExpress.create([createUserRoute]);
+    const api = ApiExpress.create([createUserRoute, loginUserRoute]);
 
     return api;
 }
