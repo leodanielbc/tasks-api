@@ -2,13 +2,12 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "email": "leo@gmail.com",
-    "password": "123456"
+    "email": "leo@gmail.com"
 }
 ###
 POST http://localhost:3000/users/login
 Content-Type: application/json
 
 {
-    "email": "leo@gmail.com"
+    "email": "leo1@gmail.com"
 }
