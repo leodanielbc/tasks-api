@@ -11,3 +11,5 @@ node_modules/
 
 credentials-firebase.json
 .env
+firebase-debug.log
+firebase-errors.log
