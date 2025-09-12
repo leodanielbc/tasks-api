@@ -1,4 +1,4 @@
-name: Firebase Functions CI/CD
+name: CI/CD Firebase Functions
 
 on:
   push:
@@ -9,35 +9,41 @@ on:
       - main
 
 jobs:
-  build-deploy:
-    name: Build & Deploy
+  build-test-deploy:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: '20'
 
       - name: Install dependencies
-        working-directory: ./functions
-        run: npm install
+        run: |
+          cd functions
+          npm install
 
-      - name: Build
-        working-directory: ./functions
-        run: npm run build
-
-      - name: Setup Firebase
-        uses: w9jds/firebase-action@v3
-        with:
-          args: "deploy --only functions"
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Lint
+        run: |
+          cd functions
+          npm run lint || echo "Lint warnings/errors ignored"
 
       - name: Run tests
-        working-directory: ./functions
-        run: npm run test
+        run: |
+          cd functions
+          npm run test
+
+      - name: Build TypeScript
+        run: |
+          cd functions
+          npm run build
+
+      - name: Deploy to Firebase
+        uses: firebase-actions/deploy-firebase-functions@v20.0.1
+        with:
+          firebase-project-id: ${{ secrets.FIREBASE_PROJECT_ID }}
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
