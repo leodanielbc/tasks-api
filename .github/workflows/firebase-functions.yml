@@ -46,4 +46,5 @@ jobs:
           npm run deploy
         env:
             FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+            URL_FRONTEND: ${{ secrets.URL_FRONTEND }}
             NODE_ENV: production
