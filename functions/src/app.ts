@@ -37,12 +37,12 @@ export function createApp() {
     const createTaskRoute = CreateTaskRoute.create(createTaskUsecase);
 
     const api = ApiExpress.create([
-        createUserRoute,
         loginUserRoute,
+        createUserRoute,
         createTaskRoute,
         listTaskRoute,
         updateTaskRoute,
-        deleteTaskRoute
+        deleteTaskRoute,
     ]);
 
     return api;

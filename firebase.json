@@ -1,7 +1,7 @@
 {
   "functions": [
     {
-      "source": "",
+      "source": "functions",
       "codebase": "default",
       "ignore": [
         "node_modules",
@@ -12,5 +12,14 @@
       ],
       "predeploy": []
     }
-  ]
+  ],
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true
+  }
 }

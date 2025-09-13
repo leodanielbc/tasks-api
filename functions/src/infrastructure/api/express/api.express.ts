@@ -1,8 +1,8 @@
-import express, { Express } from "express";
-import cors from 'cors';
+import express, { Express, Request, Response, NextFunction } from "express";
+//import cors from 'cors';
 import { Api } from "../api";
 import { Route } from "./routes/route";
-import { corsOptions } from "./middleware/cors.middleware";
+//import { corsOptions } from "./middleware/cors.middleware";
 
 export class ApiExpress implements Api {
 
@@ -10,9 +10,15 @@ export class ApiExpress implements Api {
 
     private constructor(routes: Route[]) {
         this.app = express();
-        this.app.use(cors(corsOptions));
-
         this.app.use(express.json());
+
+        this.app.use((req: Request, res: Response, next: NextFunction) => {
+            res.setHeader('Access-Control-Allow-Origin', process.env.URL_FRONTEND ?? 'http://localhost:4200');
+            res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+            res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+            res.setHeader('Access-Control-Allow-Credentials', 'true');
+            next();
+        });
 
         this.addRoutes(routes);
     }
@@ -36,6 +42,7 @@ export class ApiExpress implements Api {
             } else {
                 this.app[method](path, handler);
             }
+            console.log(`Registered route: [${method.toUpperCase()}] ${path}`);
         });
     }
 
