@@ -1,9 +1,6 @@
 import express, { Express, Request, Response, NextFunction } from "express";
-//import cors from 'cors';
 import { Api } from "../api";
 import { Route } from "./routes/route";
-//import { corsOptions } from "./middleware/cors.middleware";
-import 'dotenv/config';
 
 export class ApiExpress implements Api {
 
@@ -13,8 +10,16 @@ export class ApiExpress implements Api {
         this.app = express();
         this.app.use(express.json());
 
+        const allowedOrigins = [
+            'https://atom-131aa.web.app',
+            'http://localhost:4200'
+        ];
+
         this.app.use((req: Request, res: Response, next: NextFunction) => {
-            res.setHeader('Access-Control-Allow-Origin', process.env.URL_FRONTEND || 'http://localhost:4200');
+            const origin = req.headers.origin;
+            if (origin && allowedOrigins.includes(origin)) {
+                res.setHeader('Access-Control-Allow-Origin', origin);
+            }
             res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
             res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
             res.setHeader('Access-Control-Allow-Credentials', 'true');
