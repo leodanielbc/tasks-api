@@ -1,13 +1,13 @@
-@TOKEN_USER=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImdVZHY5WTZ1SjBiQTk3NThSYjVuIiwiZW1haWwiOiJsZW9AZ21haWwuY29tIiwiaWF0IjoxNzU3NjkyNzgxLCJleHAiOjE3NTc2OTYzODF9.hOghdULdW0Qz5A2V37Ur2tHSmCpWNYu13zmfyI_gLBQ
+@TOKEN_USER=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImdVZHY5WTZ1SjBiQTk3NThSYjVuIiwiZW1haWwiOiJsZW9AZ21haWwuY29tIiwiaWF0IjoxNzU3NzIxNDQ3LCJleHAiOjE3NTc3MjUwNDd9.qND1-r_Dr0EH0ZlXi-6i7ZQn1SNWhMRKIBckq6CnLfg
 
 POST http://localhost:3000/tasks
 Content-Type: application/json
 Authorization: Bearer {{TOKEN_USER}}
 
 {
-    "title": "Tarea1",
-    "description": "Configurar CI CD",
-    "userId": "gUdv9Y6uJ0bA9758Rb5n"
+    "title": "Tarea4",
+    "description": "Configurar CI CD con Github Actions",
+    "completed": false
 }
 
 ###

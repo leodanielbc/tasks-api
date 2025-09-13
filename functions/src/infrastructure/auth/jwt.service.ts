@@ -14,7 +14,7 @@ export class JwtService {
             return jwt.verify(token, SECRET);
         } catch (error) {
             console.error("Invalid or expired token:", (error as Error).message);
-            return null;
+            throw new Error("Invalid or expired token");
         }
     }
 

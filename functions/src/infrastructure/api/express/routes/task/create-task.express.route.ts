@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { HttpMethod, Route, RouteHandler } from "../route";
 import { CreateTaskInputDto, CreateTaskUseCase } from "../../../../../usescases/create-task/create-task.usecase";
-import { authMiddleware } from "../../middleware/auth.middleware";
+import { authMiddleware, AuthRequest } from "../../middleware/auth.middleware";
 
 export type CreateTaskResponseDto = {
     id: string;
@@ -26,9 +26,10 @@ export class CreateTaskRoute implements Route {
     public getHandler(): RouteHandler[] {
         return [
             authMiddleware,
-            async (req: Request, res: Response) => {
+            async (req: AuthRequest, res: Response) => {
                 try {
-                    const { title, description, userId } = req.body;
+                    const userId = req.user!.id;
+                    const { title, description, completed } = req.body;
                     if (!title) {
                         res.status(400).json({ error: "Title is required" });
                         return;
@@ -37,6 +38,7 @@ export class CreateTaskRoute implements Route {
                     const input: CreateTaskInputDto = {
                         title,
                         description,
+                        completed,
                         userId
                     }
 

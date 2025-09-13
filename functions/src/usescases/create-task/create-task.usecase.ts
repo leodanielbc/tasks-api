@@ -5,6 +5,7 @@ export type CreateTaskInputDto = {
     title: string;
     description: string;
     userId: string;
+    completed?: boolean;
 };
 
 export type CreateTaskOutputDto = {
@@ -27,7 +28,7 @@ export class CreateTaskUseCase {
         const task = Task.create({
             title: input.title,
             description: input.description,
-            completed: false,
+            completed: input.completed ?? false,
             createdAt: new Date().toISOString(),
             userId: input.userId,
         });
