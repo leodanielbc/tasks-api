@@ -1,6 +1,7 @@
-import express, { Express, Request, Response, NextFunction } from "express";
+import express, { Express } from "express";
 import { Api } from "../api";
 import { Route } from "./routes/route";
+import { corsMiddleware } from "./middleware/cors.middleware";
 
 export class ApiExpress implements Api {
 
@@ -9,22 +10,8 @@ export class ApiExpress implements Api {
     private constructor(routes: Route[]) {
         this.app = express();
         this.app.use(express.json());
+        this.app.use(corsMiddleware);
 
-        const allowedOrigins = [
-            'https://atom-131aa.web.app',
-            'http://localhost:4200'
-        ];
-
-        this.app.use((req: Request, res: Response, next: NextFunction) => {
-            const origin = req.headers.origin;
-            if (origin && allowedOrigins.includes(origin)) {
-                res.setHeader('Access-Control-Allow-Origin', origin);
-            }
-            res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-            res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
-            res.setHeader('Access-Control-Allow-Credentials', 'true');
-            next();
-        });
 
         this.addRoutes(routes);
     }
